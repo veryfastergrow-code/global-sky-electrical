@@ -1,0 +1,314 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Global Sky Electrical - Ultra-Infinite Mega Website</title>
+<link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap" rel="stylesheet">
+<style>
+/* ---------------- RESET ---------------- */
+* {margin:0; padding:0; box-sizing:border-box; font-family:'Roboto', sans-serif;}
+body {line-height:1.6; background:#f4f4f4; color:#333; scroll-behavior:smooth;}
+a {text-decoration:none; color:inherit;}
+img {max-width:100%; display:block;}
+
+/* ---------------- NAVBAR ---------------- */
+nav {position:fixed; top:0; width:100%; background:#0077cc; padding:1rem 2rem; display:flex; justify-content:space-between; align-items:center; z-index:1000;}
+nav .logo {color:#fff; font-size:1.8rem; font-weight:bold;}
+nav ul {list-style:none; display:flex; gap:1.5rem;}
+nav ul li {color:#fff; cursor:pointer; transition:0.3s;}
+nav ul li:hover {text-decoration:underline;}
+
+/* ---------------- HERO SLIDER ---------------- */
+.hero {height:100vh; position:relative; overflow:hidden;}
+.hero-slide {position:absolute; width:100%; height:100%; background-size:cover; background-position:center; opacity:0; transition:opacity 1s;}
+.hero-slide.active {opacity:1;}
+.hero-content {position:absolute; top:50%; left:50%; transform:translate(-50%,-50%); color:#fff; text-align:center; z-index:1;}
+.hero h1 {font-size:3rem; margin-bottom:1rem; text-shadow:2px 2px 8px rgba(0,0,0,0.7);}
+.hero p {font-size:1.5rem; margin-bottom:2rem; text-shadow:1px 1px 6px rgba(0,0,0,0.6);}
+.hero button {padding:0.8rem 1.8rem; font-size:1rem; border:none; background:#ffcc00; font-weight:bold; cursor:pointer; transition:0.3s; margin:0 0.5rem;}
+.hero button:hover {background:#ffaa00;}
+
+/* ---------------- SECTION BASE ---------------- */
+section {padding:6rem 2rem;}
+section h2 {text-align:center; font-size:2.8rem; margin-bottom:2rem; color:#0077cc;}
+.container {max-width:1200px; margin:0 auto;}
+
+/* ---------------- ABOUT ---------------- */
+.about {display:flex; flex-wrap:wrap; gap:2rem; align-items:center; justify-content:center;}
+.about img {width:450px; border-radius:10px; transition:transform 0.3s;}
+.about img:hover {transform:scale(1.05);}
+.about .text {max-width:650px; font-size:1.1rem; line-height:1.8;}
+
+/* ---------------- SERVICES ---------------- */
+.services {display:grid; grid-template-columns:repeat(auto-fit,minmax(250px,1fr)); gap:2rem;}
+.service-card {background:#fff; padding:2rem; border-radius:10px; box-shadow:0 5px 15px rgba(0,0,0,0.1); transition:transform 0.3s;}
+.service-card:hover {transform:translateY(-10px); box-shadow:0 15px 25px rgba(0,0,0,0.2);}
+.service-card h3 {margin-bottom:1rem; color:#0077cc;}
+.service-card p {font-size:0.95rem; line-height:1.5;}
+
+/* ---------------- PROJECTS CAROUSEL ---------------- */
+.projects-container {position:relative;}
+.projects-carousel {display:flex; overflow-x:auto; gap:1rem; scroll-behavior:smooth; padding-bottom:1rem;}
+.project-card {min-width:300px; border-radius:10px; overflow:hidden; box-shadow:0 5px 15px rgba(0,0,0,0.1); transition:transform 0.3s;}
+.project-card:hover {transform:translateY(-5px);}
+.project-card img {width:100%;}
+
+/* ---------------- TEAM ---------------- */
+.team {display:flex; flex-wrap:wrap; gap:2rem; justify-content:center;}
+.member {background:#fff; padding:1rem; border-radius:10px; text-align:center; box-shadow:0 5px 15px rgba(0,0,0,0.1); transition:transform 0.3s;}
+.member:hover {transform:translateY(-5px);}
+.member img {width:200px; border-radius:50%; margin-bottom:1rem;}
+.member h4 {margin-bottom:0.5rem; color:#0077cc;}
+.member p {font-size:0.9rem;}
+
+/* ---------------- TESTIMONIALS ---------------- */
+.testimonials-container {position:relative;}
+.testimonials-carousel {display:flex; overflow-x:auto; gap:1rem; scroll-behavior:smooth; padding-bottom:1rem;}
+.testimonial {min-width:300px; background:#fff; padding:2rem; border-radius:10px; box-shadow:0 5px 15px rgba(0,0,0,0.1);}
+.testimonial p {font-size:0.95rem; margin-bottom:1rem;}
+.testimonial h5 {color:#0077cc; font-weight:bold;}
+
+/* ---------------- FAQ ---------------- */
+.faq {max-width:800px; margin:0 auto;}
+.faq-item {background:#fff; margin-bottom:1rem; border-radius:10px; box-shadow:0 5px 15px rgba(0,0,0,0.1); overflow:hidden;}
+.faq-item button {width:100%; padding:1rem; border:none; background:#0077cc; color:#fff; text-align:left; cursor:pointer; font-size:1.1rem; transition:0.3s;}
+.faq-item button:hover {background:#005fa3;}
+.faq-item .answer {padding:1rem; display:none; background:#f4f4f4; line-height:1.6;}
+
+/* ---------------- BLOG CAROUSEL ---------------- */
+.blog-carousel {display:flex; overflow-x:auto; gap:1rem; scroll-behavior:smooth; padding-bottom:1rem;}
+.blog-card {min-width:300px; background:#fff; border-radius:10px; overflow:hidden; box-shadow:0 5px 15px rgba(0,0,0,0.1); transition:transform 0.3s;}
+.blog-card:hover {transform:translateY(-5px);}
+.blog-card img {width:100%;}
+.blog-card .content {padding:1rem;}
+.blog-card .content h4 {color:#0077cc; margin-bottom:0.5rem;}
+.blog-card .content p {font-size:0.95rem; line-height:1.5;}
+
+/* ---------------- CONTACT ---------------- */
+.contact form {max-width:600px; margin:0 auto; display:flex; flex-direction:column; gap:1rem;}
+.contact input, .contact textarea {padding:0.75rem; border-radius:5px; border:1px solid #ccc; width:100%;}
+.contact button {padding:0.8rem; border:none; background:#0077cc; color:#fff; font-weight:bold; cursor:pointer; transition:0.3s;}
+.contact button:hover {background:#005fa3;}
+
+/* ---------------- FOOTER ---------------- */
+footer {background:#0077cc; color:#fff; text-align:center; padding:3rem 2rem;}
+footer p {margin-bottom:0.5rem;}
+footer a {color:#ffcc00;}
+
+/* ---------------- DARK MODE ---------------- */
+.dark-mode {background:#222; color:#eee;}
+.dark-mode nav {background:#111;}
+.dark-mode section h2 {color:#ffcc00;}
+.dark-mode .service-card, .dark-mode .member, .dark-mode .testimonial, .dark-mode .faq-item, .dark-mode .blog-card, .dark-mode .project-card {background:#333; color:#eee;}
+.dark-mode .contact button {background:#ffcc00; color:#111;}
+</style>
+</head>
+<body>
+
+<!-- NAVBAR -->
+<nav>
+  <div class="logo">Global Sky Electrical</div>
+  <ul>
+    <li onclick="scrollToSection('hero')">Home</li>
+    <li onclick="scrollToSection('about')">About</li>
+    <li onclick="scrollToSection('services')">Services</li>
+    <li onclick="scrollToSection('projects')">Projects</li>
+    <li onclick="scrollToSection('team')">Team</li>
+    <li onclick="scrollToSection('testimonials')">Testimonials</li>
+    <li onclick="scrollToSection('faq')">FAQ</li>
+    <li onclick="scrollToSection('blog')">Blog</li>
+    <li onclick="scrollToSection('contact')">Contact</li>
+  </ul>
+</nav>
+
+<!-- HERO SLIDER -->
+<section class="hero" id="hero">
+  <div class="hero-slide active" style="background-image:url('https://images.unsplash.com/photo-1581090700227-18353a9fbaed');"></div>
+  <div class="hero-slide" style="background-image:url('https://images.unsplash.com/photo-1560185127-6f2976d6f06f');"></div>
+  <div class="hero-slide" style="background-image:url('https://images.unsplash.com/photo-1593642532871-8b12e02d091c');"></div>
+  <div class="hero-content">
+    <h1>Global Sky Electrical</h1>
+    <p>Powering Your World with Excellence</p>
+    <button onclick="scrollToSection('contact')">Get a Quote</button>
+    <button onclick="toggleDarkMode()">🌙 Dark Mode</button>
+  </div>
+</section>
+
+<!-- ABOUT -->
+<section id="about">
+  <h2>About Us</h2>
+  <div class="container about">
+    <img src="https://images.unsplash.com/photo-1581090700227-18353a9fbaed" alt="About Us">
+    <div class="text">
+      <p>Global Sky Electrical is a leading electrical contracting company providing top-notch services for residential, commercial, and industrial clients. We are committed to delivering high-quality electrical solutions that are safe, efficient, and sustainable.</p>
+    </div>
+  </div>
+</section>
+
+<!-- SERVICES -->
+<section id="services">
+  <h2>Our Services</h2>
+  <div class="container services">
+    <div class="service-card">
+      <h3>Residential Wiring</h3>
+      <p>Expert electrical wiring solutions for homes, ensuring safety and reliability.</p>
+    </div>
+    <div class="service-card">
+      <h3>Commercial Projects</h3>
+      <p>Comprehensive electrical services for offices, shops, and commercial spaces.</p>
+    </div>
+    <div class="service-card">
+      <h3>Industrial Solutions</h3>
+      <p>Heavy-duty electrical installations and maintenance for industrial facilities.</p>
+    </div>
+    <div class="service-card">
+      <h3>Lighting Solutions</h3>
+      <p>Innovative indoor and outdoor lighting designs to enhance spaces.</p>
+    </div>
+  </div>
+</section>
+
+<!-- PROJECTS -->
+<section id="projects">
+  <h2>Our Projects</h2>
+  <div class="container projects-container">
+    <div class="projects-carousel">
+      <div class="project-card"><img src="https://images.unsplash.com/photo-1581090700227-18353a9fbaed" alt="Project 1"></div>
+      <div class="project-card"><img src="https://images.unsplash.com/photo-1560185127-6f2976d6f06f" alt="Project 2"></div>
+      <div class="project-card"><img src="https://images.unsplash.com/photo-1593642532871-8b12e02d091c" alt="Project 3"></div>
+    </div>
+  </div>
+</section>
+
+<!-- TEAM -->
+<section id="team">
+  <h2>Our Team</h2>
+  <div class="container team">
+    <div class="member">
+      <img src="https://randomuser.me/api/portraits/men/32.jpg" alt="Team Member">
+      <h4>John Doe</h4>
+      <p>Senior Electrical Engineer</p>
+    </div>
+    <div class="member">
+      <img src="https://randomuser.me/api/portraits/women/44.jpg" alt="Team Member">
+      <h4>Jane Smith</h4>
+      <p>Project Manager</p>
+    </div>
+    <div class="member">
+      <img src="https://randomuser.me/api/portraits/men/54.jpg" alt="Team Member">
+      <h4>Mark Johnson</h4>
+      <p>Lead Technician</p>
+    </div>
+  </div>
+</section>
+
+<!-- TESTIMONIALS -->
+<section id="testimonials">
+  <h2>What Clients Say</h2>
+  <div class="container testimonials-container">
+    <div class="testimonials-carousel">
+      <div class="testimonial">
+        <p>"Global Sky Electrical transformed our office space with their exceptional work. Highly recommended!"</p>
+        <h5>– Client A</h5>
+      </div>
+      <div class="testimonial">
+        <p>"Professional, reliable, and skilled team. Excellent service for our residential project."</p>
+        <h5>– Client B</h5>
+      </div>
+      <div class="testimonial">
+        <p>"Efficient, timely, and quality work. Couldn’t ask for better electrical contractors!"</p>
+        <h5>– Client C</h5>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- FAQ -->
+<section id="faq">
+  <h2>Frequently Asked Questions</h2>
+  <div class="container faq">
+    <div class="faq-item">
+      <button onclick="toggleFAQ(this)">What services do you provide?</button>
+      <div class="answer"><p>We provide residential, commercial, and industrial electrical services, including wiring, lighting, and maintenance.</p></div>
+    </div>
+    <div class="faq-item">
+      <button onclick="toggleFAQ(this)">Do you offer emergency services?</button>
+      <div class="answer"><p>Yes, we have 24/7 emergency electrical support for urgent issues.</p></div>
+    </div>
+  </div>
+</section>
+
+<!-- BLOG -->
+<section id="blog">
+  <h2>Latest News & Blog</h2>
+  <div class="container blog-carousel">
+    <div class="blog-card">
+      <img src="https://images.unsplash.com/photo-1581090700227-18353a9fbaed" alt="Blog 1">
+      <div class="content">
+        <h4>Energy-Saving Tips for Homes</h4>
+        <p>Learn how to reduce electricity bills and make your home more energy-efficient.</p>
+      </div>
+    </div>
+    <div class="blog-card">
+      <img src="https://images.unsplash.com/photo-1560185127-6f2976d6f06f" alt="Blog 2">
+      <div class="content">
+        <h4>Top Lighting Trends 2025</h4>
+        <p>Explore the latest trends in lighting design for residential and commercial spaces.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- CONTACT -->
+<section id="contact">
+  <h2>Contact Us</h2>
+  <div class="container contact">
+    <form>
+      <input type="text" placeholder="Your Name" required>
+      <input type="email" placeholder="Email Address" required>
+      <input type="text" placeholder="Subject" required>
+      <textarea rows="5" placeholder="Message" required></textarea>
+      <button type="submit">Send Message</button>
+    </form>
+    <div style="margin-top:2rem; text-align:center;">
+      <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3768.951755218764!2d72.877426!3d19.076089!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3be7c63e18a63c21%3A0x8e1ccecd7bdfce3f!2sMumbai!5e0!3m2!1sen!2sin!4v1600000000000!5m2!1sen!2sin" width="100%" height="300" style="border:0;" allowfullscreen="" loading="lazy"></iframe>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <p>&copy; 2025 Global Sky Electrical. All Rights Reserved.</p>
+  <p>Designed with ❤️ by <a href="#">Altamas Ansari</a></p>
+</footer>
+
+<script>
+// ---------- HERO SLIDER ----------
+let currentSlide = 0;
+const slides = document.querySelectorAll('.hero-slide');
+setInterval(() => {
+  slides[currentSlide].classList.remove('active');
+  currentSlide = (currentSlide + 1) % slides.length;
+  slides[currentSlide].classList.add('active');
+}, 5000);
+
+// ---------- SMOOTH SCROLL ----------
+function scrollToSection(id){
+  document.getElementById(id).scrollIntoView({behavior:'smooth'});
+}
+
+// ---------- FAQ TOGGLE ----------
+function toggleFAQ(btn){
+  const answer = btn.nextElementSibling;
+  answer.style.display = (answer.style.display === 'block') ? 'none' : 'block';
+}
+
+// ---------- DARK MODE TOGGLE ----------
+function toggleDarkMode(){
+  document.body.classList.toggle('dark-mode');
+}
+</script>
+
+</body>
+</html>
